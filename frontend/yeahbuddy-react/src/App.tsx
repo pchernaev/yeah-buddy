@@ -11,13 +11,14 @@ import { Security, LoginCallback } from "@okta/okta-react";
 import LoginWidget from "./auth/LoginWidget";
 import { UserInfoForm } from "./layouts/UserInfoForm/UserInfoForm";
 import { AddMealsPage } from "./layouts/AddMealPage/AddMealPage";
+import { EditProfile } from "./layouts/Profile/EditProfile"
+import { Profile } from "./layouts/Profile/Profile";
 
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
-
 function App() {
-  
+
   const customAuthHandler = () => {
     history.push("/login");
   };
@@ -29,7 +30,10 @@ function App() {
   };
 
   return (
-    <div className="cover-container d-flex flex-column min-vh-100" id="home-container">
+    <div
+      className="cover-container d-flex flex-column min-vh-100"
+      id="home-container"
+    >
       <Security
         oktaAuth={oktaAuth}
         restoreOriginalUri={restoreOriginalUri}
@@ -42,7 +46,7 @@ function App() {
               <Redirect to="/home" />
             </Route>
             <Route path="/home">
-              <HomePage />
+              <HomePage auth={oktaAuth}/>
             </Route>
             <Route path="/meals">
               <MealsPage />
@@ -52,6 +56,12 @@ function App() {
             </Route>
             <Route path="/add-meal">
               <AddMealsPage />
+            </Route>
+            <Route path="/edit-profile">
+              <EditProfile auth={oktaAuth}/>
+            </Route>
+            <Route path="/profile">
+              <Profile auth={oktaAuth}/>
             </Route>
             <Route
               path="/login"

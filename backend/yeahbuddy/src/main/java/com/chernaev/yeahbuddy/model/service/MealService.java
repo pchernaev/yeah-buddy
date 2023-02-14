@@ -152,7 +152,12 @@ public class MealService {
     }
 
     public Meal saveMeal(Meal meal){
-        return mealRepository.save(meal);
+        if(isValid(meal)) return mealRepository.save(meal);
+        throw new IllegalArgumentException("Invalid meal size");
+    }
+
+    private boolean isValid(Meal meal){
+        return meal.getSize() >= 0;
     }
 
     public Meal createNewMeal(MealDTO meal){

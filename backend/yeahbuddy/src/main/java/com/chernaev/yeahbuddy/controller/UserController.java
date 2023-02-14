@@ -35,7 +35,22 @@ public class UserController {
     @CrossOrigin
     @PostMapping
     public ResponseEntity<User> createClient(@RequestBody User user) throws URISyntaxException {
-        User savedUser = userService.createUser(user);
+        User savedUser = userService.saveUser(user);
         return ResponseEntity.created(new URI("/user/" + savedUser.getId())).body(savedUser);
+    }
+    @CrossOrigin
+    @PutMapping("/email={email}")
+    public ResponseEntity<User> updateClient(@PathVariable String email, @RequestBody User user) {
+        User currentUser = userService.getClientByEmail(email);
+        currentUser.setFirstName(user.getFirstName());
+        currentUser.setLastName(user.getLastName());
+        currentUser.setAge(user.getAge());
+        currentUser.setHeight(user.getHeight());
+        currentUser.setWeight(user.getWeight());
+        currentUser.setActivity(user.getActivity());
+        currentUser.setGoal(user.getGoal());
+        currentUser = userService.saveUser(currentUser);
+
+        return ResponseEntity.ok(currentUser);
     }
 }

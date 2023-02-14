@@ -40,4 +40,5 @@ public class FoodController {
         Food savedFood = foodService.saveFood(food);
         return ResponseEntity.created(new URI("/food/" + savedFood.getId())).body(savedFood);
     }
+
 }

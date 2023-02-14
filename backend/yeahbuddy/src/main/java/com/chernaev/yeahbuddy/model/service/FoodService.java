@@ -25,10 +25,19 @@ public class FoodService {
     }
 
     public Food saveFood(Food food){
-        return foodRepository.save(food);
+        if(isValid(food)) return foodRepository.save(food);
+        throw new IllegalArgumentException("Invalid food data");
+    }
+
+    private boolean isValid(Food food){
+        return food.getCalories() >= 0 &&
+                  food.getCarbs() >= 0 &&
+                  food.getFats() >= 0 &&
+                  food.getProtein() >= 0;
     }
 
     public List<Food> getAllFoodsByKeyword(String search) {
         return foodRepository.findByNameContainingIgnoreCase(search);
     }
+
 }

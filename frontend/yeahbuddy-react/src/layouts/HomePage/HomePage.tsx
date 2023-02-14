@@ -1,22 +1,18 @@
-import { useOktaAuth } from "@okta/okta-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { SpinnerLoading } from "../Utils/SpinnerLoading";
 import { useHistory } from "react-router-dom";
 
-export const HomePage = () => {
-  const { oktaAuth, authState } = useOktaAuth();
+export const HomePage: React.FC<{auth: any}> = (props) => {
   const history = useHistory();
+  const [isAuth, setIsAuth] = useState(false);
 
-  if (!authState) {
-    return <SpinnerLoading />;
+  const isAuthenticated =async () => {
+    setIsAuth(await props.auth.isAuthenticated());
   }
 
-  if (authState.isAuthenticated) {
-    handleUserData(authState);
-  }
-
-  async function handleUserData(authState: any) {
-    const email: any = authState.idToken?.claims.email;
+  async function handleUserData() {
+    const user = await props.auth.getUser();
+    const email = user.email;
     const response: any = await fetch(
       `http://localhost:8080/user/email=${email}`
     );
@@ -25,6 +21,8 @@ export const HomePage = () => {
       history.push("/user-info");
     }
   }
+  handleUserData();
+  isAuthenticated();
 
   return (
     <div id="home" className="mt-5">
@@ -32,7 +30,7 @@ export const HomePage = () => {
         <h1 id="home__title">Yeah Buddy</h1>
         <h4 className="mb-5">Let your journey begin!</h4>
         <p className="lead">
-          {!authState.isAuthenticated ? (
+          {!isAuth ? (
             <Link
               type="button"
               className="btn btn-lg btn-light fw-bold border-white bg-white"

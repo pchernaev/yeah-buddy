@@ -9,6 +9,12 @@ export const Navbar = () => {
     return <SpinnerLoading />;
   }
 
+  const getEmail = () => {
+    return authState?.idToken?.claims.email == undefined
+      ? ""
+      : authState.idToken.claims.email;
+  };
+
   const handleLogout = async () =>
     oktaAuth.signOut({
       postLogoutRedirectUri: `${window.location.origin}/`,
@@ -57,6 +63,15 @@ export const Navbar = () => {
                 <></>
               ) : (
                 <a className="nav-link disabled">Workouts</a>
+              )}
+            </li>
+            <li className="nav-item">
+              {!authState.isAuthenticated ? (
+                <></>
+              ) : (
+                <Link className="nav-link" to="/profile">
+                  Profile
+                </Link>
               )}
             </li>
             <li className="nav-item">

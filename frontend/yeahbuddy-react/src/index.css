@@ -65,6 +65,10 @@ code {
   width: 35%;
 }
 
+#userFormContainer .btn{
+  width: 20% !important;  
+}
+
 .react-datepicker__input-container input{
   background-color: transparent;
   border: transparent;
@@ -80,3 +84,38 @@ code {
 #foods_div{
   max-height: 800px;
 }
+
+#profile{
+  text-align: center;
+}
+
+#profile .btn{
+  width: 10% !important;  
+}
+
+#edit_profle{
+  width: 35%;
+}
+
+#edit_profle .btn{
+  width: 20% !important;  
+}
+
+#food_info_container{
+  position: relative;
+}
+
+#food_info_container .card-body div{
+  position: absolute;
+  top: 0;
+  right: 0
+}
+
+small{
+  color: red;
+}
+
+small .hide{
+  display: none;
+}
+

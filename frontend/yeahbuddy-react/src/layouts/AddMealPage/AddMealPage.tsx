@@ -15,7 +15,7 @@ export const AddMealsPage = () => {
   const [fats, setFats] = useState(0);
   const [protein, setProtein] = useState(0);
   const [size, setSize] = useState(0);
-  const [group, setGroup] = useState(0);
+  const [group, setGroup] = useState(1);
   const [search, setSearch] = useState("");
   const { oktaAuth, authState } = useOktaAuth();
   const history = useHistory();
@@ -31,23 +31,63 @@ export const AddMealsPage = () => {
   }
 
   function changeCalories(e: any) {
-    setCalories(e.target.value);
+    const input = e.target;
+    const parentEl = input.parentElement;
+    const smallEl = parentEl.lastChild;
+    if (input.value < 0) {
+      smallEl.classList.remove("hide");
+    } else {
+      smallEl.classList.add("hide");
+      setCalories(e.target.value);
+    }
   }
 
   function changeCarbohydrates(e: any) {
-    setCarbohydrates(e.target.value);
+    const input = e.target;
+    const parentEl = input.parentElement;
+    const smallEl = parentEl.lastChild;
+    if (input.value < 0) {
+      smallEl.classList.remove("hide");
+    } else {
+      smallEl.classList.add("hide");
+      setCarbohydrates(e.target.value);
+    }
   }
 
   function changeFats(e: any) {
-    setFats(e.target.value);
+    const input = e.target;
+    const parentEl = input.parentElement;
+    const smallEl = parentEl.lastChild;
+    if (input.value < 0) {
+      smallEl.classList.remove("hide");
+    } else {
+      smallEl.classList.add("hide");
+      setFats(e.target.value);
+    }
   }
 
   function changeProtein(e: any) {
-    setProtein(e.target.value);
+    const input = e.target;
+    const parentEl = input.parentElement;
+    const smallEl = parentEl.lastChild;
+    if (input.value < 0) {
+      smallEl.classList.remove("hide");
+    } else {
+      smallEl.classList.add("hide");
+      setProtein(e.target.value);
+    }
   }
 
   function changeSize(e: any) {
-    setSize(e.target.value);
+    const input = e.target;
+    const parentEl = input.parentElement;
+    const smallEl = parentEl.lastChild;
+    if (input.value < 0) {
+      smallEl.classList.remove("hide");
+    } else {
+      smallEl.classList.add("hide");
+      setSize(e.target.value);
+    }
   }
 
   function changeGroup(e: any) {
@@ -200,6 +240,7 @@ export const AddMealsPage = () => {
                   <input
                     type="text"
                     className="form-control"
+                    required
                     onChange={changeName}
                   />
                 </div>
@@ -208,40 +249,55 @@ export const AddMealsPage = () => {
                   <input
                     type="number"
                     className="form-control"
+                    required
                     onChange={changeCalories}
+                    min="0"
                   />
+                  <small className="hide">Calories can not be below 0</small>
                 </div>
                 <div className="form-group mb-3">
                   <label>Carbohydrates: (grams)</label>
                   <input
                     type="number"
                     className="form-control"
+                    required
                     onChange={changeCarbohydrates}
+                    min="0"
                   />
+                  <small className="hide">Carbs can not be below 0</small>
                 </div>
                 <div className="form-group mb-3">
                   <label>Fat: (grams)</label>
                   <input
                     type="number"
                     className="form-control"
+                    required
                     onChange={changeFats}
+                    min="0"
                   />
+                  <small className="hide">Fats can not be below 0</small>
                 </div>
                 <div className="form-group mb-3">
                   <label>Protein: (grams)</label>
                   <input
                     type="number"
                     className="form-control"
+                    required
                     onChange={changeProtein}
+                    min="0"
                   />
+                  <small className="hide">Protein can not be below 0</small>
                 </div>
                 <div className="form-group mb-3">
                   <label>Size: (grams)</label>
                   <input
                     type="number"
                     className="form-control"
+                    required
                     onChange={changeSize}
+                    min="0"
                   />
+                  <small className="hide">Calories can not be under 0</small>
                 </div>
                 <p>Group:</p>
                 <div className="form-group mb-5 text-center">
@@ -251,6 +307,7 @@ export const AddMealsPage = () => {
                       type="radio"
                       value="1"
                       name="group"
+                      defaultChecked
                       onClick={changeGroup}
                     />
                     <label className="form-check-label">Breakfast</label>

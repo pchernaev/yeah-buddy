@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f3b5636c-9ae0-4006-8ded-93f57204c248" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/backend/yeahbuddy/src/main/java/com/chernaev/yeahbuddy/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/yeahbuddy/src/main/java/com/chernaev/yeahbuddy/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/yeahbuddy/src/main/java/com/chernaev/yeahbuddy/model/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/yeahbuddy/src/main/java/com/chernaev/yeahbuddy/model/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/yeahbuddy-react/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/yeahbuddy-react/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/yeahbuddy-react/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/yeahbuddy-react/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/yeahbuddy-react/src/layouts/HomePage/HomePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/yeahbuddy-react/src/layouts/HomePage/HomePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/yeahbuddy-react/src/layouts/NavbarAndFooter/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/yeahbuddy-react/src/layouts/NavbarAndFooter/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/yeahbuddy-react/src/layouts/UserInfoForm/UserInfoForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/yeahbuddy-react/src/layouts/UserInfoForm/UserInfoForm.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2LKQWmOVvTso73A6fswEbzQx349" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/chernaev/dev/yeah-buddy/backend/yeahbuddy",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f3b5636c-9ae0-4006-8ded-93f57204c248" name="Changes" comment="" />
+      <created>1675617327992</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1675617327992</updated>
+      <workItem from="1675617330187" duration="97000" />
+    </task>
+    <servers />
+  </component>
+</project>

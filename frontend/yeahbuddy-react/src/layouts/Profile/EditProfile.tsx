@@ -1,24 +1,48 @@
-import { useState } from "react";
-import { useOktaAuth } from "@okta/okta-react";
-import { SpinnerLoading } from "../Utils/SpinnerLoading";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { SpinnerLoading } from "../Utils/SpinnerLoading";
 
-export const UserInfoForm = () => {
+export const EditProfile: React.FC<{ auth: any }> = (props) => {
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
-  const [gender, setGender] = useState("MALE");
   const [age, setAge] = useState(16);
+  const [gender, setGender] = useState("MALE");
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
   const [activity, setActivity] = useState("SEDENTARY");
   const [goal, setGoal] = useState("MAINTAIN");
-
-  const { oktaAuth, authState } = useOktaAuth();
+  const [isLoading, setIsLaoding] = useState(true);
 
   const history = useHistory();
 
-  if (!authState) {
-    return <SpinnerLoading />;
+  useEffect(() => {
+    const fetchUser = async () => {
+      const email = await getEmail();
+
+      const response = await fetch(`http://localhost:8080/user/email=${email}`);
+
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+
+      const responseData = await response.json();
+
+      setFName(responseData.firstName);
+      setLName(responseData.lastName);
+      setAge(responseData.age);
+      setGender(responseData.gender);
+      setHeight(responseData.height);
+      setWeight(responseData.weight);
+      setActivity(responseData.activity);
+      setGoal(responseData.goal);
+      setIsLaoding(false);
+    };
+    fetchUser();
+  }, []);
+
+  async function getEmail() {
+    const user = await props.auth.getUser();
+    return user.email;
   }
 
   const fNameChange = (event: any) => {
@@ -26,9 +50,6 @@ export const UserInfoForm = () => {
   };
   const lNameChange = (event: any) => {
     setLName(event.target.value);
-  };
-  const genderChange = (event: any) => {
-    setGender(event.target.value);
   };
   const ageChange = (event: any) => {
     const input = event.target;
@@ -64,14 +85,14 @@ export const UserInfoForm = () => {
     }
   };
   const activityChange = (event: any) => {
-    setActivity(event.target.value);    
+    setActivity(event.target.value);
   };
   const goalChange = (event: any) => {
     setGoal(event.target.value);
   };
 
   function handleRedirect(response: any) {
-    if (response.status == 201) {
+    if (response.status == 200) {
       history.push("/home");
     } else {
       throw new Error("Something went wrong!");
@@ -80,24 +101,22 @@ export const UserInfoForm = () => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-
-    const email: any = authState.idToken?.claims.email;
+    const email = await getEmail();
 
     const client: Object = {
-      email: email,
       firstName: fName,
       lastName: lName,
+      email: email,
       gender: gender,
       age: age,
       height: height,
       weight: weight,
       activity: activity,
-      goal: goal
+      goal: goal,
     };
-    
 
-    await fetch("http://localhost:8080/user", {
-      method: "POST",
+    await fetch(`http://localhost:8080/user/email=${email}`, {
+      method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -106,10 +125,14 @@ export const UserInfoForm = () => {
     }).then(handleRedirect);
   };
 
+  if (isLoading) {
+    return <SpinnerLoading />;
+  }
+
   return (
-    <div className="container mt-4" id="userFormContainer">
+    <div className="container mt-5" id="edit_profle">
       <form onSubmit={handleSubmit}>
-        <div className="row mb-5">
+        <div className="row mb-4">
           <div className="col">
             <div className="form-outline">
               <label className="form-label">First name</label>
@@ -117,8 +140,9 @@ export const UserInfoForm = () => {
               <input
                 type="text"
                 className="form-control"
-                required
                 onChange={fNameChange}
+                required
+                defaultValue={fName}
               />
             </div>
           </div>
@@ -129,35 +153,12 @@ export const UserInfoForm = () => {
               <input
                 type="text"
                 className="form-control"
-                required
                 onChange={lNameChange}
+                required
+                defaultValue={lName}
               />
             </div>
           </div>
-        </div>
-
-        <div className="form-check form-check-inline mb-4">
-          <label className="form-check-label">Male</label>
-
-          <input
-            className="form-check-input border border-dark"
-            type="radio"
-            name="inlineRadioOptions"
-            value="MALE"
-            defaultChecked
-            onClick={genderChange}
-          />
-        </div>
-        <div className="form-check form-check-inline">
-          <label className="form-check-label">Female</label>
-
-          <input
-            className="form-check-input border border-dark"
-            type="radio"
-            name="inlineRadioOptions"
-            value="FEMALE"
-            onClick={genderChange}
-          />
         </div>
 
         <div className="form-outline mb-4">
@@ -167,6 +168,7 @@ export const UserInfoForm = () => {
             type="number"
             className="form-control"
             onChange={ageChange}
+            defaultValue={age}
             required
             min="16"
           />
@@ -179,6 +181,7 @@ export const UserInfoForm = () => {
             type="number"
             className="form-control"
             onChange={heightChange}
+            defaultValue={height}
             required
             min="0"
           />
@@ -191,6 +194,7 @@ export const UserInfoForm = () => {
             type="number"
             className="form-control"
             onChange={weightChange}
+            defaultValue={weight}
             required
             min="0"
           />
@@ -198,7 +202,14 @@ export const UserInfoForm = () => {
         </div>
         <div className="activity form-outline mb-4">
           <label htmlFor="">Activity:</label>
-          <select className="form-control" id="" onClick={activityChange}>
+          <select
+            className="form-control"
+            id=""
+            onChange={activityChange}
+            defaultValue={activity}
+            required
+            value={activity}
+          >
             <option value="SEDENTARY">Sedentary</option>
             <option value="LIGHTLY">Lightly</option>
             <option value="MODERATELY">Moderately</option>
@@ -211,8 +222,9 @@ export const UserInfoForm = () => {
           <select
             className="form-control"
             id=""
-            onClick={goalChange}
+            onChange={goalChange}
             defaultValue={"MAINTAIN"}
+            value={goal}
           >
             <option value="EXTREAM_CUT">Extream cut</option>
             <option value="CUT">Cut</option>

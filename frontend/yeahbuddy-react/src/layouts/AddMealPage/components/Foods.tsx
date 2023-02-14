@@ -19,11 +19,19 @@ export const Foods: React.FC<{ food: FoodModel }> = (props) => {
   };
 
   function changeSize(e: any) {
-    setSize(parseFloat(e.target.value));
+    const input = e.target;
+    const parentEl = input.parentElement;
+    const smallEl = parentEl.lastChild;
+    if (input.value < 0) {
+      smallEl.classList.remove("hide");
+    } else {
+      smallEl.classList.add("hide");
+      setSize(e.target.value);
+    }
   }
 
   function changeGroup(e: any){
-    setGroup(parseInt(e.target.value));
+    setGroup(e.target.value);
   }
 
   function handleRedirect(response: any) {
@@ -82,7 +90,9 @@ export const Foods: React.FC<{ food: FoodModel }> = (props) => {
                 type="number"
                 className="form-control"
                 onChange={changeSize}
+                min="0"
               />
+              <small className="hide">Size can not be below 0</small>
             </div>
             <p>Group:</p>
             <div className="form-group mb-5 text-center">
@@ -92,6 +102,7 @@ export const Foods: React.FC<{ food: FoodModel }> = (props) => {
                   type="radio"
                   value="1"
                   name="group"
+                  defaultChecked
                   onClick={changeGroup}
                 />
                 <label className="form-check-label">Breakfast</label>
